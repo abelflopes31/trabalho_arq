@@ -9,14 +9,21 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class TrabalhoarqApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TrabalhoarqApplication.class, args);
-	}
+    private static RestTemplate restTemplate;
 
-	@Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
+    public static void main(String[] args) {
+        SpringApplication.run(TrabalhoarqApplication.class, args);
     }
 
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        if (restTemplate == null) {
+            synchronized (RestTemplate.class) {
+                if (restTemplate == null) {
+                    restTemplate = builder.build();
+                }
+            }
+        }
+        return restTemplate;
+    }
 }
-

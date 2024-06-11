@@ -12,7 +12,6 @@ public class Funcionario extends Usuario {
     private String cargo;
     private String diasDisponiveis;
 
-    // Default constructor
     public Funcionario() {
         super();
     }
